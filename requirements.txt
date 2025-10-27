@@ -1,11 +1,12 @@
 streamlit
 pandas
+numpy
 matplotlib
 seaborn
-numpy
 scikit-learn
 prophet
 xgboost
 statsmodels
 google-generativeai
-docx
+python-docx
+reportlab
