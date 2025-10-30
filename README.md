@@ -1,189 +1,117 @@
-# 🤖 AI Excel Analyzer (Gemini)
+# 🤖 Gemini AI Excel Analyzer
 
-**AI Excel Analyzer (Gemini)** is an intelligent data analysis tool that integrates **Google Gemini LLM** with **Streamlit** to automatically analyze Excel datasets, suggest suitable machine learning algorithms, generate executable Python code, visualize results, and export a comprehensive report in Word format — all in one streamlined workflow.
+A Streamlit-based intelligent data analysis platform powered by **Google Gemini AI**.
+It automatically analyzes uploaded Excel datasets, suggests suitable machine-learning algorithms, executes them dynamically, visualizes insights, and generates a complete **Word report** — all with a single click.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-* 📂 Upload Excel datasets (`.xls`, `.xlsx`)
-* 🧠 Automatically suggests 3 machine learning algorithms based on data and user prompt (via Gemini)
-* 💻 Generates executable Python code for the selected algorithm
-* 📊 Handles missing data, performs train/test splits, and visualizes results
-* 📈 Runs popular algorithms like Decision Trees, Random Forest, XGBoost, Prophet, and Clustering
-* 📄 Exports AI-generated insights and dataset details as a **Word report**
-* 🔒 Secure Gemini API key input with on-demand configuration
+* **Gemini-Powered Algorithm Suggestion**
+  Automatically recommends 3 best-fit ML algorithms (classification, regression, clustering, or forecasting).
+
+* **Dynamic Code Generation & Execution**
+  Gemini writes and executes Python code for the selected algorithm on your dataset.
+
+* **Automated KPI Dashboard**
+  Generates KPIs, statistical summaries, and clean data visualizations.
+
+* **Interactive Streamlit UI**
+  Upload Excel → Select Goal → Choose Algorithm → View Results Instantly.
+
+* **Word Report Generation**
+  Exports analysis summary, KPIs, and charts into a professional `.docx` file.
 
 ---
 
 ## 🧩 Project Structure
 
 ```
-AUTOMATED-EXCEL_ANALYSIS/
-│
-├── app.py                    # Streamlit main app file
-├── requirements.txt          # Python dependencies
-├── llm_helper.py             # Gemini integration helper  
-functions
-└── README.md                 # Project documentation
+├── app.py                # Main Streamlit app (UI + workflow)
+├── llm_helper.py         # Handles Gemini API setup, suggestions, and code generation
+├── dashboard_agent.py    # Auto-generates KPI dashboard and visualizations
+├── model_agent.py        # (Optional) Isolates model execution logic for future extensions
+├── report_generator.py   # Creates Word reports with results and plots
+├── requirements.txt      # Python dependencies
 ```
 
 ---
 
-## ⚙️ Requirements
+## 🧠 Technology Stack
 
-| Category          | Package                                       |
-| ----------------- | --------------------------------------------- |
-| **Core**          | Python 3.9+                                   |
-| **Libraries**     | streamlit, pandas, numpy, seaborn, matplotlib |
-| **ML Models**     | scikit-learn, xgboost, prophet, statsmodels   |
-| **LLM**           | google-generativeai                           |
-| **Report Export** | python-docx                                   |
-| **Visualization** | matplotlib, seaborn                           |
+* **Language:** Python 3.10+
+* **Framework:** Streamlit
+* **LLM:** Google Gemini 2.5-Flash API
+* **Libraries:**
 
-Install all dependencies with:
+  * `pandas`, `numpy`, `matplotlib`, `seaborn`
+  * `scikit-learn`, `xgboost`, `prophet`, `statsmodels`
+  * `python-docx` for report generation
+  * `google-generativeai` for Gemini API
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/AI-Excel-Analyzer.git
+cd AI-Excel-Analyzer
+```
+
+### 2️⃣ Create Virtual Environment
+
+```bash
+python -m venv venv
+source venv/bin/activate       # Mac/Linux
+venv\Scripts\activate          # Windows
+```
+
+### 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+### 4️⃣ Set Up Google Gemini API
 
-## 🏗️ Architecture
-
-**1. User Interaction Layer (Streamlit UI)**
-
-* Collects Gemini API key securely.
-* Uploads Excel dataset.
-* Takes user analysis prompt.
-* Displays Gemini-suggested algorithms.
-* Runs dynamically generated ML code.
-* Exports insights as a Word report.
-
-**2. LLM Processing Layer (utils/llm_helper.py)**
-
-* Configures Gemini API.
-* Sends dataset preview and user prompt to Gemini.
-* Receives algorithm suggestions and auto-generates ML code.
-* Ensures clean, Streamlit-compatible Python code.
-
-**3. Data Processing & ML Layer (app.py)**
-
-* Cleans data (handles missing values).
-* Runs selected ML algorithm (classification, clustering, forecasting).
-* Generates visualizations and metrics.
-* Displays output in Streamlit dashboard.
-
-**4. Report Generation Layer**
-
-* Summarizes dataset info, missing values, and preview.
-* Compiles insights into a downloadable **Word (.docx)** report.
+Obtain your API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+and enter it in the Streamlit UI when prompted.
 
 ---
 
-## 🧠 How Gemini Works (Backend)
+## ▶️ Run the App
 
-* The Gemini model (`gemini-2.5-flash`) is prompted with:
+```bash
+streamlit run app.py
+```
 
-  * Dataset sample (via `df.head()`)
-  * User’s text prompt
-  * Instructions to suggest 3 ML algorithms or generate executable Python code
-* Gemini responds with either:
-
-  1. Algorithm suggestions (as a list)
-  2. Python code that runs inside Streamlit
-* The generated code executes dynamically using Python’s `exec()` inside a controlled local environment.
+Then open the displayed local URL (e.g., `http://localhost:8501`) in your browser.
 
 ---
 
-## 🔍 Implementation Progress
+## 🧾 How It Works
 
-| Stage                  | Status         | Description                                       |
-| ---------------------- | -------------- | ------------------------------------------------- |
-| Gemini LLM Setup       | ✅ Completed    | API integration and configuration ready           |
-| Excel Upload + Preview | ✅ Completed    | File upload and dataset inspection working        |
-| Algorithm Suggestion   | ✅ Completed    | Gemini suggests top 3 relevant algorithms         |
-| Code Generation        | ✅ Completed    | Gemini generates and executes working Python code |
-| Data Cleaning          | ✅ Completed    | Handles NaN values using median/mode imputation   |
-| Visualization          | ✅ Completed    | Supports plots via matplotlib/seaborn             |
-| Report Export          | ✅ Completed    | Word (.docx) report generation implemented        |   
+1. **Enter Gemini API Key** – authenticate to access Gemini-2.5-Flash model.
+2. **Upload Excel File** – dataset preview, shape, and missing values are displayed.
+3. **Enter Analysis Goal** – e.g., “Predict sales using available data”.
+4. **Gemini Suggests Algorithms** – dynamically recommends 3 algorithms.
+5. **Select Algorithm** – Gemini generates, executes, and visualizes the analysis.
+6. **Enable KPI Dashboard (optional)** – view KPIs and trends from your dataset.
+7. **Download Word Report** – get a polished `.docx` report with visuals.
 
 ---
 
-## 📈 Model Evaluation & Accuracy
+## 📊 Example Use Cases
 
-* Gemini dynamically generates ML code, so model accuracy depends on:
-
-  * Dataset quality
-  * Chosen algorithm
-  * Train/test split
-* Accuracy metrics (e.g., accuracy score, RMSE, MAE) are calculated within the generated code.
-* Typical results show **70–95% accuracy** for well-balanced datasets.
+* Predictive modeling (Sales, Demand, Revenue)
+* Customer segmentation
+* Forecasting time-series data
+* Exploratory data analysis for business insights
 
 ---
 
-## 🧪 Data Augmentation
-
-* Currently **not implemented** in this version.
-* Planned for future update where Gemini or preprocessing steps will automatically generate synthetic data to improve model generalization.
-
----
-
-## 🖥️ How to Run
-
-1. **Clone the repository**
-
-   ```bash
-   git clone <your-repo-url>
-   cd llm
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the Streamlit app**
-
-   ```bash
-   streamlit run app.py
-   ```
-
-4. **Steps in the App**
-
-   * Enter your Gemini API key.
-   * Upload an Excel file.
-   * Type an analysis prompt (e.g., “Predict sales trends”).
-   * Choose one of the suggested algorithms.
-   * View visual insights and export the Word report.
-
----
-
-## 📚 Example Prompts
-
-* “Predict employee attrition based on HR dataset.”
-* “Cluster customer purchase behavior.”
-* “Forecast sales for the next 6 months.”
-* “Identify key features influencing profit margin.”
-
----
-
-## 🧾 Output
-
-* Suggested Algorithms
-* Executed ML Code (Decision Tree, Random Forest, Prophet, etc.)
-* Metrics (Accuracy, RMSE, etc.)
-* Data Visualizations
-* Downloadable Word Report (`AI_Excel_Report.docx`)
-
----
-
-## 🧑‍💻 Author
+## 👨‍💻 Developers
 
 **Nagadevara Veera Subrahmanyam , Kaduru Sujitha**
-Project: *AI Excel Analyzer (Gemini)*
-
----
-
-**✨ Smart Data Analysis. Powered by Gemini.**

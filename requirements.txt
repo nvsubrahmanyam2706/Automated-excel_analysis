@@ -4,9 +4,10 @@ numpy
 matplotlib
 seaborn
 scikit-learn
-prophet
 xgboost
+prophet
 statsmodels
-google-generativeai
 python-docx
-reportlab
+google-generativeai
+openpyxl
+plotly
